@@ -1,0 +1,161 @@
+<html>
+    <body style="text-align: center;">
+        <p id='char'>ひらがなを入力してください</p>
+        <input id='tt' value=''>
+        <button id='bt'>送信</button>
+        <button id='reset'>リセット</button>
+        <p>単語力:<span id="count">0</span></p>
+        <script>
+            var startText = "り";
+            var out = document.getElementById("char");
+            var t = document.getElementById("tt");
+            var count = document.getElementById("count");
+
+            function start(){
+                out.innerText = "「"+startText+"」から始まる言葉をひらがなで入力してください。";  
+                countWord();
+                initWord();
+            }
+
+           　//初期値決定
+           　start();
+        
+            var a = document.getElementById("bt");
+            a.addEventListener('click',()=>{                
+                var word = t.value;
+                console.log(t.value);
+                
+                //最後の文字を取得
+                var endChar = getEndChar(word);
+
+                //入力文字のチェック
+                var flg = checkKey(word,startText,endChar);
+                if(flg){
+
+                    //言葉を記憶
+                    saveWord(word);
+
+                    //頭文字からの検索
+                    var out_key = loadWord(word,endChar);
+
+                    //結果
+                    jatch(out_key,endChar);
+
+                    //テキストボックス初期化
+                    t.innerText = "";
+                    console.dir(t);
+                }
+            });
+
+            document.getElementById('reset').addEventListener('click',()=>{
+                localStorage.clear();
+            });
+
+
+            function checkKey(word,startChar,endChar){
+                //最初の文字を取得
+                var ini = word.slice(0,1);
+                console.log(ini);
+
+                //単語があっている確認
+                if(ini != startChar){
+                    //処理中止
+                    console.log("処理中止");
+                    return false;
+                }
+                
+                //最後が「ん」じゃないことを確認
+                if(endChar == "ん"){
+                    //処理中止
+                    console.log("処理中止");
+                    out.innerText = "「ん」が最後なので、あなたの負けです。";  
+                    a.addEventListener('click',null);
+                    return false;
+                }
+                return true;
+            }
+
+            function saveWord(word){
+                if(serarchWord(word) == false){
+                    var save = localStorage.getItem('game');
+                    if(save == null){
+                        localStorage.setItem('game',word);
+                    }else{
+                        localStorage.setItem('game',save+","+word);
+                    }
+                    save = localStorage.getItem('game');
+                }
+            }
+
+
+            function loadWord(word,endChar){
+                var keyArray = localStorage.getItem('game').split(',');
+                var out_key = "";
+                for(let key of keyArray){
+                    console.log(key);
+                    if(key.slice(0,1) == endChar){
+                        out_key = key;
+                        break;
+                    }
+                }
+                return out_key;
+            }
+
+            function serarchWord(word){
+                var storage = localStorage.getItem('game');
+                var flg = false;
+                if(storage != null){
+                    var keyArray = storage.split(',');
+                    for(let key of keyArray){
+                        console.log(key);
+                        if(key == word){
+                            flg = true;
+                            break;
+                        }
+                    }
+                }
+                return flg;
+            }
+
+            function countWord(){
+                var storage = localStorage.getItem('game');
+                if(storage != null){
+                    var keyArray = storage.split(',');
+                    count.innerText = keyArray.length;
+                }else{
+                    count.innerText = 0;
+                }
+            }
+
+            function getEndChar(word){
+                var en = word.slice(-1);
+                return en;
+            }
+
+            function jatch(key,endChar){
+                if(key == ""){
+                    out.innerText = "答えられませんでした。「"+endChar+"」から始まる言葉をひらがなで入力してください。";                  
+                    a.addEventListener('click',()=>{
+                        word = t.value;
+                        var save = localStorage.getItem('game');
+                        localStorage.setItem('game',save+","+word); 
+                        out.innerText = "ありがとうございました。ゲームを続ける場合は更新してください。";  
+                    });
+                }else{
+                    out.innerText = key;
+
+                    //設定もじを更新
+                    startText = key.slice(-1);
+                    console.log("次のお題:"+startText);
+                }
+            }
+
+            function initWord(){
+                var array = ["りす","すいか","かみなり","りさいくる","るす"];
+                for(var key of array){
+                    saveWord(key);
+                }
+            }
+        </script>
+    </body>
+</html>
