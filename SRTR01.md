@@ -7,11 +7,11 @@
 ```
 <html>
 <body>
-画面表示
+TEST
 </body>
 <script>
- alert("準備完了");
- console.dir("log出力");
+ alert("OK");
+ console.dir("log");
 </script>
 </html>
 ```
@@ -58,15 +58,15 @@ gotasu(5); を実行するとコンソールに10が出力される。
 【問題】画面にボタンとテキストボックスを作りボタンに書かれている文字とテキストボックス内に書かれている文字を取得しよう   
  `追加するタグ `  
 ```
-<input id="tb" type="text" value="テキストボックス">
-<button id="bt">ボタン</button>
+<input id="tb" type="text" value="textBox">
+<button id="bt">BUTTON</button>
 ```
    
 
  ` コンソールに出力するlog ` 
 ```
-テキストボックス
-ボタン
+textBox   
+BUTTON   
 ```
    
 
@@ -121,8 +121,9 @@ console.dir(a);
 
 配列に値を保存2      
 ```
-var a[0] = "masao";
-var a[1] = "hideo";
+var a = [];//中身のない配列を作成
+a[0] = "masao";
+a[1] = "hideo";
 console.dir(a[0]);
 console.dir(a[1]);
 console.dir(a);
@@ -130,9 +131,10 @@ console.dir(a);
 
 配列の中を編集     
 ```
-var a[0] = "masao";
-var a[1] = "hideo";
-var a[1] = "hideki";
+var a = [];
+a[0] = "masao";
+a[1] = "hideo";
+a[1] = "hideki";
 console.dir(a);
 ```
 
@@ -158,22 +160,3 @@ console.dir(array);
 【問題】 文字列"a,b|c,d|e,f|g,h|i,j"をアルファベット１つづつ配列に代入する。
 
 
-
-
-# localStorage  
-
-## 保存
-```
-localStorage.setItem('タイトル',"内容");
-```
-
-
-## 読み出し
-```
-localStorage.getItem('タイトル');
-```
-
-## localStorage内のデータ削除
-```
-localStorage.clear();
-```
