@@ -16,51 +16,21 @@
         
             bt.addEventListener('click',()=>{        
                 //入力文字列の頭文字を取得
-                start = tb.value.slice(0,1);
-                console.dir("頭文字は:"+start);
-                console.dir("keyは:"+key.innerText);
 
                 //入力文字列の頭文字が正しいか確認
-                if(start == key.innerText){
-                    console.dir("正しい");
-                }else{
-                    console.dir("正しくない");
-                    return;
-                }
 
                 //入力文字列の語尾を取得
-                end = tb.value.slice(-1);
-                console.dir("語尾は"+end);
 
                 //入力文字列の語尾が正しいか確認
-                if(end == "ん"){
-                    console.dir("んだった。");
-                    return;
-                }else{
-                    console.dir("んじゃない");
-                }
 
                 //すでに出ている言葉ではないか確認
-                var i = 0;
-                console.dir(i + "<=" + wordList.length);
-                while(i <= wordList.length){
-                    if(wordList[i] == tb.value){
-                        console.dir("すでにでている言葉でした");
-                        return;
-                    }
-                    i=i+1;
-                }
 
                 //でた言葉を記録する
-                wordList.push(tb.value);
-                console.dir(wordList);
 
                 //次の出題の準備をする
                 ///出題する頭文字を設定する
-                key.innerText = end;
 
                 ///テキストボックスを空にする
-                tb.value = "";
 
             });
 
