@@ -56,15 +56,21 @@
                 wordList.push(tb.value);
                 console.dir(wordList);
 
+
+                //入力文字列の語尾が「ー」の時の処理
+                if (tb.value.slice(-1) == "ー") {            //追加
+                    tb.value = tb.value.slice(-0, -1);       //追加
+                }                                            //追加
+                console.dir(tb.value);                       //追加
+
                 //次の出題の準備をする
                 ///出題する頭文字を設定する
-                                
+                key.innerText = tb.value.slice(-1);           //変更
 
                 ///テキストボックスを空にする
+                tb.value = "";
 
             }
-
-
         </script>
     </body>
 </html>
