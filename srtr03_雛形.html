@@ -1,0 +1,72 @@
+<html>
+    <body style="text-align: center;">
+        <p id='mess1'>「<span id="key">り</span>」から始まる言葉をひらがなで入力してください。</p>
+        <p id='mess2'></p>
+        <input id='tb' type="text" value='りす'>
+        <button id='bt'>送信</button>
+        <script>
+            var start ="";     //先頭の文字を入れる
+            var end ="";       //語尾の文字を入れる
+            var wordList = []; //回答された言葉を入れる    
+            var key = document.getElementById("key");
+            var mess1 = document.getElementById("mess1");
+            var mess2 = document.getElementById("mess2");
+            var tb = document.getElementById("tb");
+            var bt = document.getElementById("bt");
+            bt.addEventListener('click',check);
+
+            function check(){
+                //入力文字列の頭文字を取得
+                start = tb.value.slice(0,1);
+                console.dir(start);
+
+                //入力文字列の頭文字が正しいか確認
+                if(start==key.innerText){
+                    console.dir("あってる");
+                }else{
+                    console.dir("先頭の文字がちがう");
+                    return;
+                }
+
+                //入力文字列の語尾を取得
+                end = tb.value.slice(-1);
+
+                //入力文字列の語尾が正しいか確認
+                if(end=="ん"){
+                    console.dir("「ん」が語尾はやだ");
+                    return;                
+                }else{
+//                     console.dir("問題なし");
+                }
+
+                //すでに出ている言葉ではないか確認
+                var i = 0;
+                while(i<wordList.length){
+                    if(tb.value == wordList[i]){
+                        console.dir("すでにでている");
+                        return;
+                    }
+                    i=i+1;
+                }
+
+                //でた言葉を記録する
+                wordList.push(tb.value);
+                console.dir(wordList);
+
+                //入力文字列の語尾が「ー」の時の処理
+                if (end == "ー") {
+                    tb.value = tb.value.slice(-0, -1);
+                }
+                console.dir(tb.value);
+
+                //次の出題の準備をする
+                ///出題する頭文字を設定する
+                key.innerText = end;
+
+                ///テキストボックスを空にする
+                tb.value = "";
+
+            }
+        </script>
+    </body>
+</html>
