@@ -67,7 +67,24 @@
 
                 ///テキストボックスを空にする
                 tb.value = "";
+                yosoku(end);
+            }
 
+
+            function yosoku(key){
+                var storage = localStorage.getItem('タイトル');
+                var list = storage.split(',');
+                var i = 0;
+                var ichimojime;
+                while(i<list.length){
+                    ichimojime = list[i].slice(0,1);
+                    if(ichimojime==key){
+                        mess2.innerText="「"+list[i]+"」とかどうですか？";
+                        return;
+                    }
+                    i=i+1;
+                }
+                mess2.innerText="「"+key+"」から始まる言葉なんか知らん"
             }
         </script>
     </body>
