@@ -1,0 +1,109 @@
+<html><head></head><body style="text-align: center;">
+	<p id="mess1">「<span id="key">り</span>」から始まる言葉をひらがなで入力してください。</p>
+	<p id="mess2"></p>
+	<input id="tb" type="text" value="">
+	<button id="bt">送信</button>
+	<script>
+		var start ="";     //先頭の文字を入れる
+		var end ="";       //語尾の文字を入れる
+		var wordList = []; //回答された言葉を入れる    
+		var key = document.getElementById("key");
+		var mess1 = document.getElementById("mess1");
+		var mess2 = document.getElementById("mess2");
+		var tb = document.getElementById("tb");
+		var bt = document.getElementById("bt");
+		bt.addEventListener('click',check);
+
+		function check(){
+			//入力文字列の頭文字を取得
+			start = tb.value.slice(0,1);
+			console.dir(start);
+
+			//入力文字列の頭文字が正しいか確認
+			if(start==key.innerText){
+				console.dir("あってる");
+			}else{
+				console.dir("先頭の文字がちがう");
+				alert("先頭の文字がちがう");
+				return;
+			}
+
+			//入力文字列の語尾を取得
+			end = tb.value.slice(-1);
+
+			var flg = checkWord(tb.value);
+			if(flg==false){
+				console.dir("すでにでている");
+				alert("すでにでている、もしくは「ん」で終わる単語です");
+				return;
+			}
+
+			//でた言葉を記録する
+			saveWord(tb.value);
+
+
+			//入力文字列の語尾が「ー」の時の処理
+			if (end == "ー") {
+				end = tb.value.slice(-2).slice(0,1);
+			}
+			console.dir(tb.value);
+
+			//次の出題の準備をする
+			cpKaitou(end);
+		
+			///テキストボックスを空にする
+			tb.value = "";
+		}
+
+		function cpKaitou(keyword){
+			var storage = localStorage.getItem('タイトル');
+			var list = storage.split(',');
+			var i = 0;
+			var ichimojime;
+			while(i<list.length){
+				//既に出ているかのチェック
+				var flg = checkWord(list[i]);
+
+				ichimojime = list[i].slice(0,1);
+				if(ichimojime==keyword && flg){
+					saveWord(list[i]);
+					mess2.innerText="「"+list[i]+"」";
+					key.innerText = list[i].slice(-1);
+					return;
+				}
+				i=i+1;
+			}
+			mess2.innerText="まいりました。"
+		}
+
+		function checkWord(word){
+			console.log("checkWord");
+			var flg = true;
+			end = tb.value.slice(-1);//末の文字を取得
+			if(end=="ん"){
+				flg = false;
+			}else{                
+				var i = 0;
+				while(i<wordList.length){
+					if(word == wordList[i]){
+						console.dir("すでにでている");                        
+						flg = false;
+					}
+					i=i+1;
+				}
+			}
+			return flg;
+		}
+
+		function saveWord(word){
+			console.log("saveWord");
+			wordList.push(word);
+			console.dir(wordList);
+			var storage = localStorage.getItem('タイトル');
+			localStorage.setItem('タイトル',storage+","+word);
+		}
+
+	</script>
+
+
+</body></html>

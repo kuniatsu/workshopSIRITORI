@@ -83,4 +83,67 @@ function cpKaitou(keyword){
 ```
 
 
-# 
+# CP側でも単語チェックをする
+①チェックに必要な処理を関数化する。(checkWord)  
+②作成した関数に置き換えて、
+③cpKaitou内でも使用する。  
+④リストとlocalStorageに保存する処理を関数化する(saveWord)  
+⑤作成した関数に置き換えて
+⑥cpKaitou内でも使用する。  
+  
+
+
+①
+```
+function checkWord(word){
+    console.log("checkWord");
+    var flg = 【処理】;
+    end = tb.value.slice(-1);//末の文字を取得
+    if(end=="ん"){
+        flg = 【処理】;
+    }else{                
+        var i = 0;
+        while(i<wordList.length){
+            if(【処理】){
+                console.dir("すでにでている");                        
+                flg = 【処理】;
+            }
+            i=i+1;
+        }
+    }
+    return flg;
+}
+```
+
+  
+② 文字のチェックを関数に置き換え
+```
+var flg = checkWord(tb.value);
+if(flg==false){
+    console.dir("すでにでている");
+    alert("すでにでている、もしくは「ん」で終わる単語です");
+    return;
+}
+```
+  
+  
+③　cpKaitou内に組み込む  
+  
+  
+④
+```
+function saveWord(word){
+    console.log("saveWord");
+    【処理】
+}
+```
+  
+
+⑤  check関数ないの処理を関数に置き換える
+```
+//でた言葉を記録する
+saveWord(tb.value);
+```
+  
+  
+⑥　cpKaitou内に組み込む  
