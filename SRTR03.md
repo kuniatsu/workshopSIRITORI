@@ -35,7 +35,7 @@ wordList(今回の既に出た単語リスト)にpush(追加)する処理と一�
 ＊答えを教えてくれるのは２問目からで良い。  
 
 ```
-function yosoku(key){
+function yosoku(keyword){
     var storage = localStorage.getItem('タイトル');
     var list = storage.split(',');
     var i = 0;
@@ -48,7 +48,7 @@ function yosoku(key){
         }
         i=i+1;
     }
-    mess2.innerText="「"+key+"」から始まる言葉なんか知らん"
+    mess2.innerText="「"+keyword+"」から始まる言葉なんか知らん"
 }
 ```
 
@@ -57,3 +57,30 @@ function yosoku(key){
 画面上(id=mess2)に答えの予想を出す。  
 
 
+
+
+# 対戦相手をCPにする
+答えを教えてくれるyosokuに変更を加えて、  
+CPと対戦できるように変更しましょう。  
+【処理】の部分を変更し、関数を完成させましょう。
+```
+function cpKaitou(keyword){
+    var storage = localStorage.getItem('タイトル');
+    var list = storage.split(',');
+    var i = 0;
+    var ichimojime;
+    while(i<list.length){
+        ichimojime = list[i].slice(0,1);
+        if(ichimojime==keyword){
+            mess2.innerText="「"+list[i]+"」";
+            【処理】
+            return;
+        }
+        i=i+1;
+    }
+    mess2.innerText="まいりました。"
+}
+```
+
+
+# 

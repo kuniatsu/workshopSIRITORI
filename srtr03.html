@@ -57,34 +57,32 @@
 
                 //入力文字列の語尾が「ー」の時の処理
                 if (end == "ー") {
-                    tb.value = tb.value.slice(-0, -1);
+                    end = tb.value.slice(-2).slice(0,-1);
                 }
                 console.dir(tb.value);
 
                 //次の出題の準備をする
-                ///出題する頭文字を設定する
-                key.innerText = end;
-
+                cpKaitou(end);
+            
                 ///テキストボックスを空にする
                 tb.value = "";
-                yosoku(end);
             }
 
-
-            function yosoku(key){
+            function cpKaitou(keyword){
                 var storage = localStorage.getItem('タイトル');
                 var list = storage.split(',');
                 var i = 0;
                 var ichimojime;
                 while(i<list.length){
                     ichimojime = list[i].slice(0,1);
-                    if(ichimojime==key){
-                        mess2.innerText="「"+list[i]+"」とかどうですか？";
+                    if(ichimojime==keyword){
+                        mess2.innerText="「"+list[i]+"」";
+                        key.innerText = list[i].slice(-1);
                         return;
                     }
                     i=i+1;
                 }
-                mess2.innerText="「"+key+"」から始まる言葉なんか知らん"
+                mess2.innerText="まいりました。"
             }
         </script>
     </body>

@@ -55,7 +55,7 @@
 
                 //入力文字列の語尾が「ー」の時の処理
                 if (end == "ー") {
-                    tb.value = tb.value.slice(-0, -1);
+                    end = tb.value.slice(-2).slice(0,-1);
                 }
                 console.dir(tb.value);
 
