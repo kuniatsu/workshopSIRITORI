@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    カーブ半径とカーブの長さを求めよう</p>
+    <img src="./BVE5作成補助_1.png" alt="画像の解説文"></p>
+    A= <input id="A" type="text" value="0"></p>
+    B= <input id="B" type="text" value="0"></p>
+    <button id="bt">計算</button></p>
+    R= <span id="R"></span></p>
+    l = <span id="l"></span>
+    <script>
+    var R = document.getElementById("R");
+    var l = document.getElementById("l");
+    var Atb = document.getElementById("A");
+    var Btb = document.getElementById("B");
+    var bt = document.getElementById("bt");
+    bt.addEventListener('click', check);
+    function check() {
+    var b = Btb.value;
+    var a = Atb.value;
+    var a2 = 0;
+    var b2 = 0;
+    //半径の計算
+    a /= 2;
+    a *= a;
+    var ab = b * b;
+    ab += a;
+    b *= 2;
+    console.dir(ab / b);
+    R.innerText = Math.round(ab / b * 1000)/1000
+    var r = ab / b
+    if (R.innerText == "NaN"){
+        R.innerText = 0
+    };
+    //弧長の計算
+    a2 = Atb.value;
+    b2 = Btb.value;
+    a2 /= 2;
+    var L = Math.asin(a2 / r);
+    L /= (Math.PI / 180);
+    L *= 2;
+    L /= 360;
+    var c = 2 * r;
+    c *= Math.PI;
+    L *= c;
+    console.dir(L);
+    l.innerText = Math.round(L * 1000)/1000;
+    if (l.innerText == "NaN"){
+        l.innerText = 0
+    };
+    };
+    </script>
+</html>
